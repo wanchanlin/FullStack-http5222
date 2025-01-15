@@ -1,0 +1,23 @@
+doctype html
+html
+    head 
+        meta(charset="utf-8")
+        title #{title} | Test Website
+        link(rel="stylesheet", href="/style.css")
+    body
+        //- header#header is the short form for header(id='header')
+        //- You can also use . for class name (e.g., div.myclass)
+        header#header
+            div.header-content
+                h2#site-name 
+                    a(href="#") Test Website
+            nav
+                ul
+                    li
+                        a(href="/") Home
+                    li
+                        a(href="/about") About
+        main#main 
+            block layout-content
+        footer#footer
+            p &copy; Copyright HTTP5222, 2025.
