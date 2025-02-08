@@ -1,0 +1,16 @@
+[{
+  "_id": {
+    "$oid": "6790fbc60f7cc1e224cb52ab"
+  },
+  "weight": 0,
+  "path": "/",
+  "name": "Home"
+},
+{
+  "_id": {
+    "$oid": "67910cfe8155378b42cca995"
+  },
+  "weight": "1",
+  "path": "/about",
+  "name": "about"
+}]

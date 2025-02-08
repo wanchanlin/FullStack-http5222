@@ -1,6 +1,27 @@
 extends layout
 block layout-content
-    div.content
-    h1.page-title  popular
-    p Some content about us...
-    p A random  bbb
+    section.featured-products
+        h1.page-title Welcome to Our E-commerce Store
+        p We offer a wide selection of products at great prices.
+        h2 Featured Products
+
+        .product-list
+            .product
+                img(src='https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', alt='Product 1')
+                h3 Fuji Flim Camera
+                p $19.99
+                button Add 
+            .product
+                img(src='https://images.pexels.com/photos/6442514/pexels-photo-6442514.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', alt='Product 2')
+                h3 CBD Oil
+                p $29.99
+                button Add 
+            .product
+                img(src='https://images.pexels.com/photos/28028339/pexels-photo-28028339/free-photo-of-two-tan-leather-wallets-with-one-open-and-one-closed.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', alt='Product 3')
+                h3 Pegamon Wallet
+                p $39.99
+                button Add 
+
+    section.about-us
+        h2 About Us
+        p We are committed to providing the best products and services to our customers.

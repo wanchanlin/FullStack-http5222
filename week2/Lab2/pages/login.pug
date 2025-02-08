@@ -1,0 +1,14 @@
+extends layout
+
+block layout-content
+    section.login-form
+        h1.page-title Log In
+        form(action="/login", method="post")
+            div.form-group
+                label(for="username") Username
+                input(type="text", id="username", name="username", required)
+            div.form-group
+                label(for="password") Password
+                input(type="password", id="password", name="password", required)
+            div.form-group
+                button(type="submit") Log In
