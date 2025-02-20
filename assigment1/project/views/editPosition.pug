@@ -1,0 +1,37 @@
+extends common/layout
+
+block layout-content
+  h1 Edit Position
+  if err
+    .error-message= err
+    
+  form(action=`/editPosition/${position._id}` method="POST")
+    div.form-group
+      label(for="fullName") Full Name:
+      input(type="text" id="fullName" name="fullName" value=position.fullName required)
+    
+    div.form-group
+      label(for="email") Email:
+      input(type="email" id="email" name="email" value=position.email required)
+    
+    div.form-group
+      label(for="title") Title:
+      input(type="text" id="title" name="title" value=position.title required)
+    
+    div.form-group
+      label(for="description") Description:
+      textarea(id="description" name="description")= position.description
+    
+    div.form-group
+      label(for="role") Role:
+      select(id="role" name="role" required)
+        option(value="employee" selected=position.role === 'employee') Employee
+        option(value="employer" selected=position.role === 'employer') Employer
+    
+    div.form-group
+      label(for="hireDate") Hire Date:
+      input(type="date" id="hireDate" name="hireDate" value=position.hireDate.toISOString().split('T')[0])
+    
+    div.form-actions
+      button(type="submit") Update Position
+      a(href="/").cancel-button Cancel

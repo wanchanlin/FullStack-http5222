@@ -1,53 +1,52 @@
 const express = require("express");
-const path = require("path"); //needed when setting up static/file paths
+const path = require("path");
 const dotenv = require("dotenv");
 
-//load the environment variables from .env
+// Load environment variables from .env
 dotenv.config();
 
-const db = require("./modules/movies/db"); //load db.js
+const db = require("./modules/movies/db"); // Load db.js
 
-//set up the Express app
+// Set up the Express app
 const app = express();
 const port = process.env.PORT || "8888";
 
-//set up application template engine
-app.set("views", path.join(__dirname, "views")); //the first "views" is the setting name
-//the second value above is the path: __dirname/views
+// Set up application template engine
+app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 
-//set up folder for static files
+// Set up folder for static files
 app.use(express.static(path.join(__dirname, "public")));
 
-//USE PAGE ROUTES FROM ROUTER(S)
+// USE PAGE ROUTES FROM ROUTER(S)
 app.get("/", async (request, response) => {
   let movieList = await db.getMovies();
-  //if there's nothing in the pets collection, initialize with some content then get the pets again
+  
+  // If there are no movies in the collection, initialize with default movies, then retrieve them again.
   if (!movieList.length) {
-    await db.initializeMovies(); 
+    await db.initializeMovies();
     movieList = await db.getMovies();
   }
+  
   response.render("index", { movies: movieList });
 });
+
 app.get("/add", async (request, response) => {
-  //add a pet
-  await db.addMovie("Apocalypto", 2006 , 3.6);
+  await db.addMovie("Wolf Man", 2025, "R");
   response.redirect("/");
 });
+
 app.get("/update", async (request, response) => {
-  // update something
-  await db.updateMovieName("Mitten", "Rumi")
+  await db.updateMovieRating("R", "G");
   response.redirect("/");
-})
+});
 
 app.get("/delete", async (request, response) => {
-await db.deleteMoviebyName("Fred");
-response.redirect("/");
-})
+  await db.deleteMoviesByRating("R"); // Delete all movies with rating "R"
+  response.redirect("/");
+});
 
-
-//set up server listening
+// Set up server listening
 app.listen(port, () => {
   console.log(`Listening on http://localhost:${port}`);
-}); 
-
+});

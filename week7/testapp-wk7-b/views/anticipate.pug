@@ -1,0 +1,13 @@
+extends layout 
+
+block main-content 
+  h1.page-title Anticipated TV Shows
+  table
+    tr 
+      th Title
+      th Year
+    each am in anticipateTV
+      tr
+        td: a(href=`https://imdb.com/title/${am.show.ids.imdb}`) #{am.show.title}
+        td Year released: #{am.show.year}
+            

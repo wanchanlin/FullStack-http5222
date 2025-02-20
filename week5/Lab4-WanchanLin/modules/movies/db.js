@@ -1,8 +1,7 @@
 const mongoose = require("mongoose");
 
-//const dbUrl = `mongodb://${process.env.DBUSER}:${process.env.DBPWD}@${process.env.DBHOST}/?authSource=testdb`;
 const dbUrl = `mongodb+srv://${process.env.DBUSER}:${process.env.DBPWD}@${process.env.DBHOST}`;
-// Define Schema and Model
+
 const MovieSchema = new mongoose.Schema({
   title: String,
   year: Number,
@@ -10,58 +9,45 @@ const MovieSchema = new mongoose.Schema({
 });
 
 const Movie = mongoose.model("Movie", MovieSchema);
-
-// MongoDB Functions
 async function connect() {
-  await mongoose.connect(dbUrl); // Connect to MongoDB
+  if (mongoose.connection.readyState === 0) {
+    try {
+      await mongoose.connect(dbUrl);
+      console.log("Connected to MongoDB");
+    } catch (error) {
+      console.error("MongoDB connection error:", error);
+      throw new Error("Database connection failed");
+    }
+  }
 }
 
 async function getMovies() {
   await connect();
-  return await Movie.find({}); // Return array of all movies
+  return await Movie.find({});
 }
 
 async function initializeMovies() {
   const movieList = [
-    {
-      title: "Transformers",
-      year: 2007,
-      rating: 'G'
-    },
-    {
-      title: "500 Days of Summer",
-      year: 2015,
-      rating: 'G'
-    }
+    { title: "Transformers", year: 2007, rating: "G" },
+    { title: "500 Days of Summer", year: 2015, rating: "G" }
   ];
-  await connect();
+
   await Movie.insertMany(movieList);
 }
 
 async function addMovie(movieTitle, movieYear, movieRating) {
-  let newMovie = new Movie({
-    title: movieTitle,
-    year: movieYear,
-    rating: movieRating
-  });
-
-  await connect();
-  const result = await newMovie.save(); // Save to the DB collection
+  let newMovie = new Movie({ title: movieTitle, year: movieYear, rating: movieRating });
+  let result = await newMovie.save();
   console.log(result);
 }
 
-async function updateMovieTitle(oldTitle, newTitle) {
-  await connect();
-  let result = await Movie.updateOne(
-    { title: oldTitle },
-    { title: newTitle }
-  );
+async function updateMovieRating(oldRating, newRating) {
+  let result = await Movie.updateOne({ rating: oldRating }, { rating: newRating });
   console.log(result);
 }
 
-async function deleteMovieByTitle(movieTitle) {
-  await connect();
-  let result = await Movie.deleteOne({ title: movieTitle });
+async function deleteMoviesByRating(rating) {
+  let result = await Movie.deleteMany({ rating: rating });
   console.log(result);
 }
 
@@ -69,6 +55,6 @@ module.exports = {
   getMovies,
   initializeMovies,
   addMovie,
-  updateMovieTitle,
-  deleteMovieByTitle
+  updateMovieRating,
+  deleteMoviesByRating
 };

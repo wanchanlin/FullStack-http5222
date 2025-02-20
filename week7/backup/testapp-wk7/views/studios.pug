@@ -1,0 +1,6 @@
+extends layout 
+
+block main-content 
+  h1.page-title Movie Studios 
+    each s in MovieStudios
+      li #{s.name}

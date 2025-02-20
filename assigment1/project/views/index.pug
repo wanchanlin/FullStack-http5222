@@ -1,0 +1,17 @@
+extends common/layout
+
+block layout-content 
+  .main-content 
+    h1.page-title Position Listings
+    a(href="/addPosition") Add New Position
+
+    each position in positions 
+      div 
+        h2 #{position.fullName}, #{position.title}
+        p Email: #{position.email}
+        p Role: #{position.role}
+        p Hire Date: #{position.hireDate ? position.hireDate.toISOString().split("T")[0] : "N/A"}
+
+        a(href=`/editPosition/${position._id}`) Edit   
+        form(action=`/delete/${position._id}` method="POST" style="display:inline")
+          button(type="submit") Delete

@@ -1,0 +1,8 @@
+extends layout 
+
+block main-content 
+  h1.page-title Hello! 
+  each m in trendingMovies 
+    h2: a(href="/movies/#{m.movie.ids.imdb}") #{m.movie.title} 
+    p= m.movie.year
+  
