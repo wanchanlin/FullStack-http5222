@@ -1,0 +1,12 @@
+.drink-container {
+    display: flex;
+    flex-direction: row;
+    gap: 3rem; 
+    flex-wrap: wrap;
+}
+
+.drinks {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

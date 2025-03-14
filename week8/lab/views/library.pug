@@ -1,0 +1,15 @@
+extends layout
+
+block main-content
+  h1 Library
+  - let lBranch = library.querySelector("name").textContent;
+  - let lAddress = library.querySelector("address").textContent;
+  - let lPhone = library.querySelector("phoneNumber").textContent;
+ 
+
+  H2 Branch Name: #{lBranch}
+  p Phone: #{lPhone}
+  p Address: #{lAddress}
+
+  //-  branch name, address, and phone number.
+

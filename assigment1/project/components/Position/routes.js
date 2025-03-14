@@ -3,7 +3,8 @@ const router = express.Router();
 
 const positionController = require("./controller");
 
-router.get("/", positionController.getAllPositions);
+router.get("/", positionController.welcome);
+router.get("/info", positionController.getAllPositions);
 router.get("/addPosition", positionController.getAddForm);  
 router.post("/addPosition", positionController.addPosition);
 
@@ -12,8 +13,7 @@ router.post("/addPosition", positionController.addPosition);
 router.get("/editPosition/:id", positionController.getEditForm);
 router.post("/editPosition/:id", positionController.updatePosition);
 router.post("/delete/:id", positionController.deletePosition);
-
-// router.get("/api", positionController.getApi);
+router.get("/api", positionController.getPositionApi);
 
 
 

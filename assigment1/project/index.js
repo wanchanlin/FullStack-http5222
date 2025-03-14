@@ -9,7 +9,7 @@ dotenv.config();
 
 //set up the Express app
 const app = express();
-const port = process.env.PORT || "8888";
+const port = process.env.PORT || "8887";
 
 //set up application template engine
 app.set("views", path.join(__dirname, "views")); //the first "views" is the setting name
@@ -40,23 +40,7 @@ app.use("/", require("./components/Position/routes"));
 app.use("/user", require("./components/User/routes"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-/* 
-app.get("/add", async (request, response) => {
-  //add a pet
-  await db.addPet("Max", "dog", "Great Dane", 7)
-  response.redirect("/");
-});
-app.get("/update", async (request, response) => {
-  //update something
-  await db.updatePetName("Max", "Maximillian")
-  response.redirect("/");
-});
-app.get("/delete", async (request, response) => {
-  await db.deletePetByName("Fred");
-  response.redirect("/");
-}) */
 
-//set up server listening
 app.listen(port, () => {
   console.log(`Listening on http://localhost:${port}`);
 }); 

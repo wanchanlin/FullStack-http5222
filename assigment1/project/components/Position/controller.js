@@ -2,6 +2,11 @@
 
 const positionModel = require("./model");
 
+
+const welcome = (request, response) => {
+  response.render("index");
+};
+
 const getAllPositions = async (request, response) => {
   let positionList = await positionModel.getPositions();
   //if there's nothing in the pets collection, initialize with some content then get the pets again
@@ -9,7 +14,7 @@ const getAllPositions = async (request, response) => {
     await positionModel.initializePositions(); 
     positionList = await positionModel.getPositions();
   }
-  response.render("index", { positions: positionList });
+  response.render("info", { positions: positionList });
 };
 
 const getAddForm = (request, response) => {
@@ -90,11 +95,27 @@ const deletePosition = async (request, response) => {
   }
 };
 
+const getPositionApi = async (request, response) => {
+  try {
+    let positionList = await positionModel.getPositions();
+    if (!positionList) {
+      return response.status(404).json({ error: "No positions found" });
+    }
+    response.json(positionList);
+  } catch (error) {
+    console.error("Error fetching positions:", error);
+    response.status(500).json({ error: "Internal server error" });
+  }
+};
+
 module.exports = {
+  welcome,
+  // getPositionApi,  // Added getPositionApi function
   getAllPositions,
   getAddForm,
   addPosition,
   getEditForm,
   updatePosition,
-  deletePosition
+  deletePosition,
+  getPositionApi
 };
